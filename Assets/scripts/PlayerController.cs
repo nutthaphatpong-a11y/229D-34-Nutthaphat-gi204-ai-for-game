@@ -11,11 +11,14 @@ public class PlayerController : MonoBehaviour
     private InputAction jumpAction;
 
     private bool isOnGround = true;
+    public AudioClip jumpSound;
+    private AudioSource audioSource;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
         jumpAction = InputSystem.actions.FindAction("Jump");
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -39,6 +42,8 @@ public class PlayerController : MonoBehaviour
             // 1.5 make it jump
             rb.AddForce(jumpForce * Vector3.up, ForceMode.Impulse);
             isOnGround = false;
+            audioSource.PlayOneShot(jumpSound);
+
         }
     }
 
